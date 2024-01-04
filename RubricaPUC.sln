@@ -3,9 +3,40 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{F6F4C042-9890-4EDA-868D-B35F71169A18}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{983FC7FC-15A9-43FA-AE92-04C3BAF6158F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{246922D0-06F6-4474-91E3-7BC4D73F6FFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{C87881CB-1C0A-4634-AABD-ADF4E83A120F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frontend", "frontend", "{927E2606-E5E8-4DF3-811D-443FC28E4736}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration.AspNetCore.WebApi", "Integration.AspNetCore.WebApi\Integration.AspNetCore.WebApi.csproj", "{FA94D6E7-77F7-4A08-BF64-EDBCDDA38B28}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA94D6E7-77F7-4A08-BF64-EDBCDDA38B28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA94D6E7-77F7-4A08-BF64-EDBCDDA38B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA94D6E7-77F7-4A08-BF64-EDBCDDA38B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA94D6E7-77F7-4A08-BF64-EDBCDDA38B28}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C87881CB-1C0A-4634-AABD-ADF4E83A120F} = {983FC7FC-15A9-43FA-AE92-04C3BAF6158F}
+		{927E2606-E5E8-4DF3-811D-443FC28E4736} = {983FC7FC-15A9-43FA-AE92-04C3BAF6158F}
+		{FA94D6E7-77F7-4A08-BF64-EDBCDDA38B28} = {C87881CB-1C0A-4634-AABD-ADF4E83A120F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B80DBE20-6CDE-492F-A08C-C50B04CC9D26}
