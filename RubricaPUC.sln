@@ -17,11 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{C878
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frontend", "frontend", "{927E2606-E5E8-4DF3-811D-443FC28E4736}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integration.AspNetCore.WebApi", "Integration.AspNetCore.WebApi\Integration.AspNetCore.WebApi.csproj", "{FA94D6E7-77F7-4A08-BF64-EDBCDDA38B28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integration.AspNetCore.WebApi", "src\backend\Integration.AspNetCore.WebApi\Integration.AspNetCore.WebApi.csproj", "{FA94D6E7-77F7-4A08-BF64-EDBCDDA38B28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor", "Blazor\Blazor\Blazor.csproj", "{4C95C4B9-5BB6-4179-8DB4-F308FA68ECFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor", "src\frontend\Blazor\Blazor\Blazor.csproj", "{4C95C4B9-5BB6-4179-8DB4-F308FA68ECFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Client", "Blazor\Blazor.Client\Blazor.Client.csproj", "{02AA0E20-5B8F-40DE-833D-387191FF948C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Client", "src\frontend\Blazor\Blazor.Client\Blazor.Client.csproj", "{02AA0E20-5B8F-40DE-833D-387191FF948C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
