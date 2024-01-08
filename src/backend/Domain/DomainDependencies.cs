@@ -10,3 +10,5 @@ public static class DomainDependencies
         return services;
     }   
 }
+
+internal class Anchor;

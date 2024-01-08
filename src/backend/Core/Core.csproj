@@ -10,6 +10,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\shared\Shared.Core.Presentation.AspNetCore\Shared.Core.Presentation.AspNetCore.csproj" />
+	  <ProjectReference Include="..\..\shared\Shared.Core\Shared.Core.csproj" />
 	  <ProjectReference Include="..\CrossCutting\CrossCutting.csproj" />
+	  <ProjectReference Include="..\Domain\Domain.csproj" />
 	</ItemGroup>
 </Project>
