@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Internal;
-using Microsoft.OpenApi.Models;
 using System.Net.Mime;
 
 // ReSharper disable once CheckNamespace
@@ -27,164 +26,13 @@ public class Endpoint : IEndpointDefinition
     {
         builder.MapPost("api/v1/profile/log-in", HandleAsync)
             .RequireCors()
-            .WithOpenApi(op =>
-            {
-                op.Tags = [new OpenApiTag
-                {
-                    Name = "IdentityContext"
-                }];
-
-                op.OperationId = "LogIn";
-                op.Description = "Crea un token de identificación y un token de refresco";
-
-                op.RequestBody = new OpenApiRequestBody
-                {
-                    Required = true,
-                    Content = new Dictionary<string, OpenApiMediaType>
-                    {
-                        [MediaTypeNames.Application.Json] = new OpenApiMediaType
-                        {
-                            Schema = new OpenApiSchema
-                            {
-                                Type = "object",
-                                Properties = new Dictionary<string, OpenApiSchema>
-                                {
-                                    ["email"] = new OpenApiSchema
-                                    {
-                                        Type = "string",
-                                        Description = "Correo electrónico del usuario"
-                                    },
-                                    ["password"] = new OpenApiSchema
-                                    {
-                                        Type = "string",
-                                        Description = "Contraseña del usuario"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                };
-
-                op.Responses.Add("Success",
-                    new OpenApiResponse
-                    {
-                        Content = new Dictionary<string, OpenApiMediaType>
-                        {
-                            [MediaTypeNames.Application.Json] = new OpenApiMediaType
-                            {
-                                Schema = new OpenApiSchema
-                                {
-                                    Type = "object",
-                                    Properties = new Dictionary<string, OpenApiSchema>
-                                    {
-                                        ["jwt"] = new OpenApiSchema
-                                        {
-                                            Type = "string",
-                                            Description = "Token de identificación"
-                                        },
-                                        ["refreshToken"] = new OpenApiSchema
-                                        {
-                                            Type = "string",
-                                            Description = "Token de refresco"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                    });
-
-                op.Responses.Add("Unauthorized",
-                    new OpenApiResponse
-                    {
-                        Description = "No se pudo iniciar sesión",
-                        Content = new Dictionary<string, OpenApiMediaType>
-                        {
-                            [MediaTypeNames.Application.Json] = new OpenApiMediaType
-                            {
-                                Schema = new OpenApiSchema
-                                {
-                                    Type = "object",
-                                    Properties = new Dictionary<string, OpenApiSchema>
-                                    {
-                                        ["type"] = new OpenApiSchema
-                                        {
-                                            Type = "string",
-                                            Description = "Tipo de error"
-                                        },
-                                        ["title"] = new OpenApiSchema
-                                        {
-                                            Type = "string",
-                                            Description = "Título del error"
-                                        },
-                                        ["detail"] = new OpenApiSchema
-                                        {
-                                            Type = "string",
-                                            Description = "Detalle del error"
-                                        },
-                                        ["errors"] = new OpenApiSchema
-                                        {
-                                            Type = "array",
-                                            Description = "Errores de validación",
-                                            Items = new OpenApiSchema
-                                            {
-                                                Type = "object",
-                                                Properties = new Dictionary<string, OpenApiSchema>
-                                                {
-                                                    ["code"] = new OpenApiSchema
-                                                    {
-                                                        Type = "string",
-                                                        Description = "Código del error"
-                                                    },
-                                                    ["description"] = new OpenApiSchema
-                                                    {
-                                                        Type = "string",
-                                                        Description = "Descripción del error"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-
-                op.Responses.Add("Forbidden",
-                    new OpenApiResponse
-                    {
-                        Description = "No se pudo iniciar sesión",
-                        Content = new Dictionary<string, OpenApiMediaType>
-                        {
-                            [MediaTypeNames.Application.Json] = new OpenApiMediaType
-                            {
-                                Schema = new OpenApiSchema
-                                {
-                                    Type = "object",
-                                    Properties = new Dictionary<string, OpenApiSchema>
-                                    {
-                                        ["type"] = new OpenApiSchema
-                                        {
-                                            Type = "string",
-                                            Description = "Tipo de error"
-                                        },
-                                        ["title"] = new OpenApiSchema
-                                        {
-                                            Type = "string",
-                                            Description = "Título del error"
-                                        },
-                                        ["detail"] = new OpenApiSchema
-                                        {
-                                            Type = "string",
-                                            Description = "Detalle del error"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-
-                return op;
-            });
+            .WithName("LogIn")
+            .WithSummary("Crea un token de identificación y un token de refresco")
+            .WithTags("IdentityContext")
+            .Accepts<LogInContract>(MediaTypeNames.Application.Json)
+            .Produces<LogInResponse>()
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .ProducesProblem(StatusCodes.Status403Forbidden);
     }
 
     public static async ValueTask<IResult> HandleAsync(
