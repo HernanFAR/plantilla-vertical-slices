@@ -9,7 +9,7 @@ public static class CoreDependencies
             .AddReflectionPublisher()
             .AddInMemoryEventQueue()
             .AddBackgroundEventListenerService()
-            .AddEndpointDefinitionsFromAssemblyContaining<Anchor>();
+            .AddFeatureDependenciesFromAssemblyContaining<Anchor>();
 
 }
 
