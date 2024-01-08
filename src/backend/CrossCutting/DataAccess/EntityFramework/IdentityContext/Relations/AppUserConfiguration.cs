@@ -30,5 +30,8 @@ internal class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
             .HasMaxLength(AppUser.PhoneNumberField.MaxLength)
             .IsRequired();
 
+        builder.Property(u => u.PasswordHash)
+            .IsRequired();
+
     }
 }

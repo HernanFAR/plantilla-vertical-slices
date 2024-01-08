@@ -9,11 +9,11 @@ using System.Security.Claims;
 
 namespace CrossCutting.Security.Authentication.Services;
 
-public class RefreshTokenGenerator(RefreshBearerOptions refreshBearerOptions,
+public class RefreshTokenGenerator(IOptions<RefreshBearerOptions> refreshBearerOptions,
     IOptions<IdentityOptions> options, 
     SystemClock systemClock)
 {
-    private readonly RefreshBearerOptions _refreshBearerOptions = refreshBearerOptions;
+    private readonly IOptions<RefreshBearerOptions> _refreshBearerOptions = refreshBearerOptions;
     private readonly IOptions<IdentityOptions> _options = options;
     private readonly SystemClock _systemClock = systemClock;
 
@@ -21,15 +21,15 @@ public class RefreshTokenGenerator(RefreshBearerOptions refreshBearerOptions,
     {
         Claim[] claims = [new Claim(_options.Value.ClaimsIdentity.UserIdClaimType, user.Id.ToString())];
 
-        var key = new SymmetricSecurityKey(_refreshBearerOptions.KeyBytes);
+        var key = new SymmetricSecurityKey(_refreshBearerOptions.Value.KeyBytes);
 
         var utcTime = _systemClock.UtcNow
-            .Add(_refreshBearerOptions.Duration);
+            .Add(_refreshBearerOptions.Value.Duration);
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var jwt = new JwtSecurityToken(
-            issuer: _refreshBearerOptions.Issuer,
-            audience: _refreshBearerOptions.Audience,
+            issuer: _refreshBearerOptions.Value.Issuer,
+            audience: _refreshBearerOptions.Value.Audience,
             claims: claims,
             expires: utcTime.DateTime,
             signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)

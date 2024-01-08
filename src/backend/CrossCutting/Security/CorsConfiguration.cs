@@ -14,11 +14,11 @@ internal static class CorsConfiguration
     {
         opts.AddDefaultPolicy(builder =>
         {
-            var origins = conf.GetValue<string[]>("Cors:Origins");
+            var origins = conf.GetValue<string>("Cors:Origins");
 
             if (origins is null) throw new ArgumentNullException(nameof(origins));
 
-            builder.WithOrigins(origins)
+            builder.WithOrigins(origins.Split(";"))
                 .AllowAnyMethod()
                 .AllowAnyHeader();
         });

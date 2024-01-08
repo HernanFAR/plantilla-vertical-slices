@@ -3,6 +3,7 @@ using CrossCutting.DataAccess.EntityFramework.IdentityContext.Models;
 using CrossCutting.DataAccess.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ internal static class DataAccessConfiguration
             .AddIdentity<AppUser, AppRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters = "aábcdeéfghiíjklmnoópqrstuúvwxyzAÁBCDEÉFGHIÍJKLMNOÓPQRSTUÚVWXYZ ";
 
                 options.Password.RequiredLength = 8;
                 options.Password.RequireDigit = true;
