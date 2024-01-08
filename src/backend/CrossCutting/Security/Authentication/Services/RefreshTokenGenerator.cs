@@ -19,7 +19,10 @@ public class RefreshTokenGenerator(IOptions<RefreshBearerOptions> refreshBearerO
 
     public ValueTask<TokenInformation> GenerateAsync(AppUser user, CancellationToken _)
     {
-        Claim[] claims = [new Claim(_options.Value.ClaimsIdentity.UserIdClaimType, user.Id.ToString())];
+        Claim[] claims = [
+            new Claim(_options.Value.ClaimsIdentity.UserIdClaimType, user.Id.ToString()),
+            new Claim(ClaimTypes.AuthenticationInstant, _systemClock.UtcNow.UtcTicks.ToString())
+        ];
 
         var key = new SymmetricSecurityKey(_refreshBearerOptions.Value.KeyBytes);
 

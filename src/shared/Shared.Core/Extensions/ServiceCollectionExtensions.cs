@@ -27,7 +27,7 @@ public static class ServiceCollectionExtensions
             {
                 defineDependenciesMethod.Invoke(null, [services]);
 
-                return services;
+                continue;
             }
                 
             throw new InvalidOperationException($"{definerType.FullName} does not implement {nameof(IFeatureDependencyDefinition)}");

@@ -1,4 +1,5 @@
 ﻿using CrossCutting.DataAccess.Identity;
+using CrossCutting.Security.Authentication;
 using CrossCutting.Security.Authentication.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -97,6 +98,7 @@ public class Handler(ApplicationSignInManager signInManager,
         var refreshToken = await _refreshTokenGenerator.GenerateAsync(user, cancellationToken);
 
         user.LastJwtCreated = _systemClock.UtcNow;
+        user.LastSessionStarted = _systemClock.UtcNow;
 
         var result = await _signInManager.UserManager.UpdateAsync(user);
 

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 // ReSharper disable once CheckNamespace
 namespace CrossCutting.Security.Authorization.Policies;
 
-internal class AppPolicies
+public class AppPolicies
 {
     public static readonly AuthorizationPolicy DefaultPolicy =
         new AuthorizationPolicyBuilder(AuthenticationForm.Default)
