@@ -40,4 +40,17 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
+    public static IServiceCollection AddEndpointDefinition<T>(this IServiceCollection services)
+    {
+        return services.AddEndpointDefinition(typeof(T));
+    }
+
+    public static IServiceCollection AddEndpointDefinition(this IServiceCollection services,
+        Type endpointDefinitionType)
+    {
+        services.AddScoped(typeof(ISimpleEndpointDefinition), endpointDefinitionType);
+
+        return services;
+    }
 }

@@ -12,7 +12,7 @@ public static class ReflectionSenderExtensions
     /// <returns>Service Collection</returns>
     public static IServiceCollection AddReflectionSender(this IServiceCollection services)
     {
-        services.AddSingleton<ISender, ReflectionSender>();
+        services.AddScoped<ISender, ReflectionSender>();
 
         return services;
     }

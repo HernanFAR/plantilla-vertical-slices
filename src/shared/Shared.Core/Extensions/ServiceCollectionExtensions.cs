@@ -36,27 +36,25 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    /// <summary>
-    /// Adds <see cref="IHandler{TRequest,TResponse}"/> implementations from the specified assembly of the <typeparamref name="TAnchor"/> type, to the service collection.
-    /// </summary>
-    /// <typeparam name="TAnchor">Anchor type to search</typeparam>
-    /// <param name="services">Service collection</param>
-    /// <param name="lifetime">Lifetime</param>
-    /// <returns>Service collection</returns>
-    public static IServiceCollection AddHandlersFromAssemblyContaining<TAnchor>(this IServiceCollection services,
-        ServiceLifetime lifetime = ServiceLifetime.Scoped)
+    public static IServiceCollection AddHandler<T>(this IServiceCollection services)
     {
-        var definerTypes = typeof(TAnchor).Assembly.ExportedTypes
-            .Where(e => e.GetInterfaces().Where(o => o.IsGenericType).Any(o => o.GetGenericTypeDefinition() == typeof(IHandler<,>)))
-            .Where(e => e is { IsAbstract: false, IsInterface: false })
-            .Select(e => (e, e.GetInterfaces()
-                .Where(o => o.IsGenericType)
-                .Single(o => o.GetGenericTypeDefinition() == typeof(IHandler<,>))));
+        return services.AddHandler(typeof(T));
+    }
 
-        foreach (var (handlerType, handlerInterface) in definerTypes)
+    public static IServiceCollection AddHandler(this IServiceCollection services, 
+        Type handlerType)
+    {
+        var handlerInterface = handlerType.GetInterfaces()
+                .Where(o => o.IsGenericType)
+                .SingleOrDefault(o => o.GetGenericTypeDefinition() == typeof(IHandler<,>));
+
+        if (handlerInterface is null)
         {
-            services.Add(new ServiceDescriptor(handlerInterface, handlerType, lifetime));
+            throw new InvalidOperationException(
+                $"The type {handlerType.FullName} does not implement {typeof(IHandler<,>).FullName}");
         }
+
+        services.AddTransient(handlerInterface, handlerType);
 
         return services;
     }

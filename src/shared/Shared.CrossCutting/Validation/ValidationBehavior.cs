@@ -10,7 +10,7 @@ namespace Shared.CrossCutting.Validation;
 /// </summary>
 /// <typeparam name="TRequest">The intercepted request to validate</typeparam>
 /// <typeparam name="TResult">The expected successful response</typeparam>
-public abstract class ValidationBehavior<TRequest, TResult>(IEnumerable<IValidator<TRequest>> validator) 
+public sealed class ValidationBehavior<TRequest, TResult>(IEnumerable<IValidator<TRequest>> validator) 
     : IPipelineBehavior<TRequest, TResult>
     where TRequest : IBaseRequest<TResult>
 {
@@ -34,7 +34,7 @@ public abstract class ValidationBehavior<TRequest, TResult>(IEnumerable<IValidat
     /// <param name="request">The request to validate</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="ValueTask{T}"/> holding a <see cref="Result{Result}"/> of <see cref="Success"/> that represents the result of the operation </returns>
-    protected async ValueTask<Result<Success>> ValidateAsync(TRequest request, CancellationToken cancellationToken)
+    async ValueTask<Result<Success>> ValidateAsync(TRequest request, CancellationToken cancellationToken)
     {
         if (_validator is null)
         {
@@ -49,9 +49,7 @@ public abstract class ValidationBehavior<TRequest, TResult>(IEnumerable<IValidat
             .Select(e => new ValidationError(e.PropertyName, e.ErrorMessage))
             .ToArray();
 
-        return new BusinessFailure(FailureKind.ValidationError, 
-            "Error de validación", 
-            "Se han encontrado errores en el objeto enviado", 
-            request, errors);
+        return new BusinessFailure(FailureKind.ValidationError,
+            Errors: errors);
     }
 }

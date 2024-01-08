@@ -1,15 +1,16 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Shared.Abstracts.Requests;
 using Shared.Abstracts.Responses;
 using Shared.Core.Events.Strategies;
 using Shared.Core.Handlers;
-using Shared.Core.Requests;
+using Shared.CrossCutting.Abstracts;
 
 namespace Shared.Core.Events.Internals;
 
 internal abstract class AbstractHandlerWrapper
 {
     public abstract ValueTask HandleAsync(
-        object request, 
+        object request,
         IServiceProvider serviceProvider,
         CancellationToken cancellationToken);
 }
@@ -17,7 +18,7 @@ internal abstract class AbstractHandlerWrapper
 internal abstract class AbstractHandlerWrapper<TResponse> : AbstractHandlerWrapper
 {
     public abstract ValueTask HandleAsync(
-        IBaseRequest<TResponse> request, 
+        IBaseRequest<TResponse> request,
         IServiceProvider serviceProvider,
         CancellationToken cancellationToken);
 }
@@ -34,7 +35,7 @@ internal class RequestHandlerWrapper<TRequest, TResponse>(IPublishingStrategy st
         IBaseRequest<TResponse> request, IServiceProvider serviceProvider, CancellationToken cancellationToken)
     {
         var handlers = serviceProvider.GetServices<IHandler<TRequest, TResponse>>();
-        
+
         var handlerDelegates = handlers.Select(handler =>
             {
                 return serviceProvider

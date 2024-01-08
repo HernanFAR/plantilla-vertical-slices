@@ -17,7 +17,7 @@ namespace Shared.CrossCutting.Logging;
 /// </remarks>
 /// <param name="logger">Logger</param>
 /// <param name="behaviorConfiguration">Configuration to use</param>
-public class LoggingBehavior<TRequest, TResult>(
+public sealed class LoggingBehavior<TRequest, TResult>(
     ILogger<TRequest> logger, LoggingBehaviorConfiguration behaviorConfiguration) 
     : IPipelineBehavior<TRequest, TResult>
     where TRequest : IBaseRequest<TResult>
@@ -26,7 +26,7 @@ public class LoggingBehavior<TRequest, TResult>(
     readonly LoggingBehaviorConfiguration _behaviorConfiguration = behaviorConfiguration;
 
     /// <inheritdoc/>
-    public virtual async ValueTask<Result<TResult>> HandleAsync(TRequest request, 
+    public async ValueTask<Result<TResult>> HandleAsync(TRequest request, 
         RequestHandlerDelegate<TResult> next, CancellationToken cancellationToken = default)
     {
         InitialHandling(request);
@@ -45,7 +45,7 @@ public class LoggingBehavior<TRequest, TResult>(
     /// Logs information about the request, at the start of request 
     /// </summary>
     /// <param name="request">Request to log about</param>
-    protected internal virtual void InitialHandling(TRequest request)
+    void InitialHandling(TRequest request)
     {
         _logger.LogInformation(_behaviorConfiguration.Describer.Initial,
             DateTime.Now, typeof(TRequest).FullName, 
@@ -57,7 +57,7 @@ public class LoggingBehavior<TRequest, TResult>(
     /// </summary>
     /// <param name="response">Response to log about</param>
     /// <param name="request">Request to log about</param>
-    protected internal virtual void SuccessHandling(Result<TResult> response, TRequest request)
+    void SuccessHandling(Result<TResult> response, TRequest request)
     {
         _logger.LogInformation(_behaviorConfiguration.Describer.Success,
             DateTime.Now, typeof(TRequest).FullName, 
@@ -70,7 +70,7 @@ public class LoggingBehavior<TRequest, TResult>(
     /// </summary>
     /// <param name="response">Response to log about</param>
     /// <param name="request">Request to log about</param>
-    protected internal virtual void FailureHandling(Result<TResult> response, TRequest request)
+    void FailureHandling(Result<TResult> response, TRequest request)
     {
         _logger.LogWarning(_behaviorConfiguration.Describer.Failure,
             DateTime.Now, typeof(TRequest).FullName, 

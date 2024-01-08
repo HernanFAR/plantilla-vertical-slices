@@ -16,10 +16,7 @@ public static class CrossCuttingExtensions
     /// <returns>Service collection</returns>
     public static IServiceCollection AddValidationBehavior(this IServiceCollection services)
     {
-        services.Add(
-            new ServiceDescriptor(typeof(IPipelineBehavior<,>), 
-            typeof(ValidationBehavior<,>), 
-            ServiceLifetime.Scoped));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         return services;
     }
@@ -31,10 +28,7 @@ public static class CrossCuttingExtensions
     /// <returns>Service collection</returns>
     public static IServiceCollection AddExceptionHandlingBehavior(this IServiceCollection services)
     {
-        services.Add(
-            new ServiceDescriptor(typeof(IPipelineBehavior<,>),
-                typeof(ExceptionHandlingBehavior<,>),
-                ServiceLifetime.Scoped));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ExceptionHandlingBehavior<,>));
 
         return services;
     }
@@ -53,10 +47,7 @@ public static class CrossCuttingExtensions
         configAction?.Invoke(configuration);
 
         services.AddSingleton(configuration);
-        services.Add(
-            new ServiceDescriptor(typeof(IPipelineBehavior<,>),
-                typeof(LoggingBehavior<,>),
-                ServiceLifetime.Scoped));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
         return services;
     }

@@ -9,7 +9,7 @@ namespace Shared.CrossCutting.ExceptionHandling;
 /// </summary>
 /// <typeparam name="TRequest">The intercepted request to handle</typeparam>
 /// <typeparam name="TResult">The expected successful response</typeparam>
-public class ExceptionHandlingBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, TResult>
+public sealed class ExceptionHandlingBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, TResult>
     where TRequest : IBaseRequest<TResult>
 {
     /// <inheritdoc/>
@@ -37,7 +37,7 @@ public class ExceptionHandlingBehavior<TRequest, TResult> : IPipelineBehavior<TR
     /// <param name="ex">The throw exception</param>
     /// <param name="request">The related request information</param>
     /// <returns>A <see cref="ValueTask"/> representing the processing of the exception</returns>
-    protected internal ValueTask ProcessExceptionAsync(Exception ex, TRequest request)
+    internal ValueTask ProcessExceptionAsync(Exception ex, TRequest request)
     {
         return ValueTask.CompletedTask;
     }

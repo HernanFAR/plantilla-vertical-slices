@@ -17,4 +17,4 @@ public interface ISimpleEndpointDefinition
 /// <summary>
 /// Defines an endpoint of a use case with dependencies
 /// </summary>
-public interface IEndpointDefinition : IFeatureDependencyDefinition;
+public interface IEndpointDefinition : IFeatureDependencyDefinition, ISimpleEndpointDefinition;

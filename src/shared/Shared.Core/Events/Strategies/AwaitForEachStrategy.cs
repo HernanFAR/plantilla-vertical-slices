@@ -1,4 +1,4 @@
-﻿using Shared.Core.Handlers;
+﻿using Shared.CrossCutting.Abstracts;
 
 namespace Shared.Core.Events.Strategies;
 
