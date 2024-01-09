@@ -1,5 +1,4 @@
 ﻿using CrossCutting.DataAccess.Identity;
-using CrossCutting.Security.Authentication;
 using CrossCutting.Security.Authentication.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -51,12 +50,13 @@ public class Endpoint : IEndpointDefinition
 
 public record Command(string Email, string Password) : IRequest<LogInResponse>;
 
-public class Handler(ApplicationSignInManager signInManager,
+public class Handler(AppSignInManager signInManager,
     JwtTokenGenerator jwtTokenGenerator,
     RefreshTokenGenerator refreshTokenGenerator,
-    SystemClock systemClock) : IHandler<Command, LogInResponse>
+    SystemClock systemClock) 
+    : IHandler<Command, LogInResponse>
 {
-    private readonly ApplicationSignInManager _signInManager = signInManager;
+    private readonly AppSignInManager _signInManager = signInManager;
     private readonly JwtTokenGenerator _jwtTokenGenerator = jwtTokenGenerator;
     private readonly RefreshTokenGenerator _refreshTokenGenerator = refreshTokenGenerator;
     private readonly SystemClock _systemClock = systemClock;

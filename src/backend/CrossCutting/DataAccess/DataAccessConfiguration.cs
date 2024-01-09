@@ -26,9 +26,9 @@ internal static class DataAccessConfiguration
             })
             .AddDefaultTokenProviders()
             .AddEntityFrameworkStores<AppDbContext>()
-            .AddUserManager<ApplicationUserManager>()
-            .AddSignInManager<ApplicationSignInManager>()
-            .AddClaimsPrincipalFactory<ApplicationClaimsFactory>()
+            .AddUserManager<AppUserManager>()
+            .AddSignInManager<AppSignInManager>()
+            .AddClaimsPrincipalFactory<AppClaimsFactory>()
             .Services;
     }
 

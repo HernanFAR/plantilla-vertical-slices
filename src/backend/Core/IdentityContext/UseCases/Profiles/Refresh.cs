@@ -53,14 +53,14 @@ public record Command : IRequest<RefreshResponse>
 }
 
 public class Handler(JwtTokenGenerator jwtTokenGenerator,
-    ApplicationSignInManager signInManager,
+    AppSignInManager signInManager,
     IOptions<IdentityBearerOptions> bearerOptions,
     UserIdentifiedAccessor userIdentifiedAccessor,
     SystemClock systemClock)
     : IHandler<Command, RefreshResponse>
 {
     private readonly JwtTokenGenerator _jwtTokenGenerator = jwtTokenGenerator;
-    private readonly ApplicationSignInManager _signInManager = signInManager;
+    private readonly AppSignInManager _signInManager = signInManager;
     private readonly IOptions<IdentityBearerOptions> _bearerOptions = bearerOptions;
     private readonly SystemClock _systemClock = systemClock;
     private readonly UserIdentifiedAccessor _userIdentifiedAccessor = userIdentifiedAccessor;

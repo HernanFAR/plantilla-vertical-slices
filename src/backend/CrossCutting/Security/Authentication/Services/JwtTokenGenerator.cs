@@ -9,11 +9,11 @@ using System.IdentityModel.Tokens.Jwt;
 namespace CrossCutting.Security.Authentication.Services;
 
 public class JwtTokenGenerator(IOptions<IdentityBearerOptions> identityBearerOptions, 
-    ApplicationSignInManager signInManager,
+    AppSignInManager signInManager,
     SystemClock systemClock)
 {
     private readonly IOptions<IdentityBearerOptions> _identityBearerOptions = identityBearerOptions;
-    private readonly ApplicationSignInManager _signInManager = signInManager;
+    private readonly AppSignInManager _signInManager = signInManager;
     private readonly SystemClock _systemClock = systemClock;
 
     public async ValueTask<TokenInformation> GenerateAsync(AppUser user, CancellationToken _)

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace CrossCutting.DataAccess.Identity;
 
-public class ApplicationUserManager(
+public class AppUserManager(
     IUserStore<AppUser> store,
     IOptions<IdentityOptions> optionsAccessor,
     IPasswordHasher<AppUser> passwordHasher,

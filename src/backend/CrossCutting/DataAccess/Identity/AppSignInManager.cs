@@ -7,8 +7,8 @@ using Microsoft.Extensions.Options;
 
 namespace CrossCutting.DataAccess.Identity;
 
-public class ApplicationSignInManager(
-    ApplicationUserManager userManager,
+public class AppSignInManager(
+    AppUserManager userManager,
     IHttpContextAccessor contextAccessor,
     IUserClaimsPrincipalFactory<AppUser> claimsFactory,
     IOptions<IdentityOptions> optionsAccessor,
@@ -18,5 +18,5 @@ public class ApplicationSignInManager(
     : SignInManager<AppUser>(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes,
         confirmation)
 {
-    public new ApplicationUserManager UserManager { get; } = userManager;
+    public new AppUserManager UserManager { get; } = userManager;
 }
