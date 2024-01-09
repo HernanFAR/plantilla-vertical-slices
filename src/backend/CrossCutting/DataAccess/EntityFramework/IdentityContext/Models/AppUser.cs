@@ -6,14 +6,14 @@ public sealed class AppUser : IdentityUser<Guid>
 {
     public string Rut { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
+    public string FatherLastName { get; set; } = string.Empty;
+    public string MotherLastName { get; set; } = string.Empty;
     public DateTimeOffset? LastJwtCreated { get; set; }
     public DateTimeOffset? LastSessionStarted { get; set; }
 
     public override string UserName
     {
-        get => $"{Name} {FirstName} {LastName}";
+        get => $"{Name} {FatherLastName} {MotherLastName}";
         set { }
     }
 
