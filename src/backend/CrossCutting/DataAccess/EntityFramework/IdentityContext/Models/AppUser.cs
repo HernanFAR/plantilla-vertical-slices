@@ -4,10 +4,42 @@ namespace CrossCutting.DataAccess.EntityFramework.IdentityContext.Models;
 
 public sealed class AppUser : IdentityUser<Guid>
 {
+    private string _name = string.Empty;
+    private string _fatherLastName = string.Empty;
+    private string _motherLastName = string.Empty;
+
     public string Rut { get; set; } = string.Empty;
-    public string Name { get; set; } = string.Empty;
-    public string FatherLastName { get; set; } = string.Empty;
-    public string MotherLastName { get; set; } = string.Empty;
+
+    public string Name
+    {
+        get => _name;
+        set
+        {
+            _name = value;
+            base.UserName = UserName;
+        }
+    }
+
+    public string FatherLastName
+    {
+        get => _fatherLastName;
+        set
+        {
+            _fatherLastName = value;
+            base.UserName = UserName;
+        }
+    }
+
+    public string MotherLastName
+    {
+        get => _motherLastName;
+        set
+        {
+            _motherLastName = value;
+            base.UserName = UserName;
+        }
+    }
+
     public DateTimeOffset? LastJwtCreated { get; set; }
     public DateTimeOffset? LastSessionStarted { get; set; }
 
@@ -27,19 +59,19 @@ public sealed class AppUser : IdentityUser<Guid>
         public const int MaxLength = 128;
     }
 
-    public static class FirstNameField
+    public static class FatherLastNameField
     {
         public const int MaxLength = 64;
     }
 
-    public static class LastNameField
+    public static class MotherLastNameField
     {
         public const int MaxLength = 64;
     }
 
     public static class UserNameField
     {
-        public const int MaxLength = NameField.MaxLength + FirstNameField.MaxLength + LastNameField.MaxLength;
+        public const int MaxLength = NameField.MaxLength + FatherLastNameField.MaxLength + MotherLastNameField.MaxLength;
     }
 
     public static class EmailField

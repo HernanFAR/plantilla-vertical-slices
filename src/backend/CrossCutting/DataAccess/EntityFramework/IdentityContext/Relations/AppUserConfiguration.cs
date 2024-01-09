@@ -10,6 +10,22 @@ internal class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
     {
         builder.HasKey(u => u.Id);
 
+        builder.Property(u => u.Rut)
+            .HasMaxLength(AppUser.RutField.MaxLength)
+            .IsRequired();
+
+        builder.Property(u => u.Name)
+            .HasMaxLength(AppUser.NameField.MaxLength)
+            .IsRequired();
+
+        builder.Property(u => u.FatherLastName)
+            .HasMaxLength(AppUser.FatherLastNameField.MaxLength)
+            .IsRequired();
+
+        builder.Property(u => u.MotherLastName)
+            .HasMaxLength(AppUser.MotherLastNameField.MaxLength)
+            .IsRequired();
+
         builder.Property(u => u.UserName)
             .HasMaxLength(AppUser.UserNameField.MaxLength)
             .IsRequired();

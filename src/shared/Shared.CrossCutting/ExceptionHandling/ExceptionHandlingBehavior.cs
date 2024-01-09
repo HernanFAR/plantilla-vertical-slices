@@ -44,7 +44,10 @@ public sealed class ExceptionHandlingBehavior<TRequest, TResult>(
     /// <returns>A <see cref="ValueTask"/> representing the processing of the exception</returns>
     internal ValueTask ProcessExceptionAsync(Exception ex, TRequest request)
     {
-        _logger.LogCritical(ex, "Ha ocurrido una excepción no manejada en el sistema");
+        _logger.LogCritical(ex, 
+            "Ha ocurrido una excepción no manejada en el sistema, en el manejo de {RequestType} con valores {RequestValues}",
+            typeof(TRequest).FullName,
+            request);
 
         return ValueTask.CompletedTask;
     }
