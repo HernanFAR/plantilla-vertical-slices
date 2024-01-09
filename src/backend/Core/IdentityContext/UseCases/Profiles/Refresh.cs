@@ -30,7 +30,7 @@ public class Endpoint : IEndpointDefinition
             .RequireAuthorization(nameof(AppPolicies.RefreshPolicy))
             .WithName("Refresh")
             .WithSummary("Crea un token de identificación, usando el token de refresco")
-            .WithTags("IdentityContext")
+            .WithTags("IdentityContext", "Profile")
             .Produces<RefreshResponse>()
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .ProducesProblem(StatusCodes.Status403Forbidden)

@@ -28,7 +28,7 @@ public class Endpoint : IEndpointDefinition
             .RequireCors()
             .WithName("LogIn")
             .WithSummary("Crea un token de identificación y un token de refresco")
-            .WithTags("IdentityContext")
+            .WithTags("IdentityContext", "Profile")
             .Accepts<LogInContract>(MediaTypeNames.Application.Json)
             .Produces<LogInResponse>()
             .ProducesProblem(StatusCodes.Status401Unauthorized)
