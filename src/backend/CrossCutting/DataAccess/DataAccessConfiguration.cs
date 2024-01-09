@@ -17,7 +17,7 @@ internal static class DataAccessConfiguration
             .AddIdentity<AppUser, AppRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
-                options.User.AllowedUserNameCharacters = "aábcdeéfghiíjklmnoópqrstuúvwxyzAÁBCDEÉFGHIÍJKLMNOÓPQRSTUÚVWXYZ ";
+                options.User.AllowedUserNameCharacters = "aábcdeéfghiíjklmnñoópqrstuúvwxyzAÁBCDEÉFGHIÍJKLMNÑOÓPQRSTUÚVWXYZ ";
 
                 options.Password.RequiredLength = 8;
                 options.Password.RequireDigit = true;
