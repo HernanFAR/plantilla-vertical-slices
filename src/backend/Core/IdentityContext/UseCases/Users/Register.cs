@@ -1,19 +1,15 @@
 ﻿using CrossCutting.DataAccess.EntityFramework.IdentityContext.Models;
 using CrossCutting.DataAccess.Identity;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 
 // ReSharper disable once CheckNamespace
 namespace Core.IdentityContext.UseCases.Users.Register;
 
 public record RegisterContract(
-    string Name, 
-    string FatherName, 
-    string MotherName, 
-    string Rut, 
-    string Email, 
+    string Name,
+    string FatherName,
+    string MotherName,
+    string Rut,
+    string Email,
     string? PhoneNumber,
     string Password);
 

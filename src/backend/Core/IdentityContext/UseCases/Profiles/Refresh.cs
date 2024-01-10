@@ -1,14 +1,7 @@
 ﻿using CrossCutting.DataAccess.Identity;
-using CrossCutting.Security.Authentication;
 using CrossCutting.Security.Authentication.Options;
 using CrossCutting.Security.Authentication.Services;
 using CrossCutting.Security.Authorization.Policies;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Internal;
-using Microsoft.Extensions.Options;
 
 // ReSharper disable once CheckNamespace
 namespace Core.IdentityContext.UseCases.Profiles.Refresh;
@@ -82,7 +75,7 @@ public class Handler(JwtTokenGenerator jwtTokenGenerator,
                                Title: "Tu usuario no ha iniciado sesión");
         }
 
-        var refreshTokenCreated = _userIdentifiedAccessor.GetIssuedTime() 
+        var refreshTokenCreated = _userIdentifiedAccessor.GetIssuedTime()
                                   ?? throw new InvalidOperationException("Refresh token not valid");
 
         if (user.LastSessionStarted.Value.Subtract(refreshTokenCreated).TotalSeconds > 5)

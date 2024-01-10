@@ -1,11 +1,5 @@
 ﻿using CrossCutting.DataAccess.Identity;
 using CrossCutting.Security.Authentication.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Internal;
-using System.Net.Mime;
 
 // ReSharper disable once CheckNamespace
 namespace Core.IdentityContext.UseCases.Profiles.LogIn;
@@ -53,7 +47,7 @@ public record Command(string Email, string Password) : IRequest<LogInResponse>;
 public class Handler(AppSignInManager signInManager,
     JwtTokenGenerator jwtTokenGenerator,
     RefreshTokenGenerator refreshTokenGenerator,
-    SystemClock systemClock) 
+    SystemClock systemClock)
     : IHandler<Command, LogInResponse>
 {
     private readonly AppSignInManager _signInManager = signInManager;
